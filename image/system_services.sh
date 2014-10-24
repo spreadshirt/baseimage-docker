@@ -17,8 +17,9 @@ $minimal_apt_get_install runit
 
 ## Install a syslog daemon.
 $minimal_apt_get_install syslog-ng-core
-mkdir /etc/service/syslog-ng
-cp /build/runit/syslog-ng /etc/service/syslog-ng/run
+mkdir /etc/sv/syslog-ng
+ln -s /etc/sv/syslog-ng /etc/service
+cp /build/runit/syslog-ng /etc/sv/syslog-ng/run
 mkdir -p /var/lib/syslog-ng
 cp /build/config/syslog_ng_default /etc/default/syslog-ng
 
@@ -28,8 +29,9 @@ $minimal_apt_get_install logrotate
 ## Install the SSH server.
 $minimal_apt_get_install openssh-server
 mkdir /var/run/sshd
-mkdir /etc/service/sshd
-cp /build/runit/sshd /etc/service/sshd/run
+mkdir /etc/sv/sshd
+ln -s /etc/sv/sshd /etc/service
+cp /build/runit/sshd /etc/sv/sshd/run
 cp /build/config/sshd_config /etc/ssh/sshd_config
 cp /build/00_regen_ssh_host_keys.sh /etc/my_init.d/
 
@@ -45,8 +47,9 @@ cp /build/enable_insecure_key /usr/sbin/
 
 ## Install cron daemon.
 $minimal_apt_get_install cron
-mkdir /etc/service/cron
-cp /build/runit/cron /etc/service/cron/run
+mkdir /etc/sv/cron
+ln -s /etc/sv/cron /etc/service
+cp /build/runit/cron /etc/sv/cron/run
 
 ## Remove useless cron entries.
 # Checks for lost+found and scans for mtab.
